@@ -47,7 +47,7 @@ namespace Proyecto_1
         {
             get
             {
-                if (!SaveFileExists) { loadedNodes = InitialNodes; }
+                if (!SaveFileExists) { loadedNodes = InitialNodes; Save(); }
                 else
                 {
                     using (StreamReader file = File.OpenText(SaveFilePath))

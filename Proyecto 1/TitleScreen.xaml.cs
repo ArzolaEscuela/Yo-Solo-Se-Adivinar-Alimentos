@@ -17,6 +17,7 @@ namespace Proyecto_1
         }
 
         public TitleScreenContents Contents { get; }
+        private static bool _initialized = false;
 
         public TitleScreen()
         {
@@ -29,6 +30,9 @@ namespace Proyecto_1
             };
             ApplyTemplate();
             DataContext = this;
+
+            if (_initialized) { return; }
+            _initialized = true;
             Logic.Initialize();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Windows;
 using Microsoft.Win32;
@@ -53,14 +54,14 @@ namespace Proyecto_1
                 Node previousNode = root;
                 var path = nodeToCheck.PathToNode;
 
-                while (path.Count > 1)
+                int pathNodeCountMinusOne = path.Count - 1;
+                for (int j = 0; j < pathNodeCountMinusOne; j++)
                 {
-                    EDirection nextDirection = path[0];
-                    path.RemoveAt(0);
+                    EDirection nextDirection = path[j];
                     previousNode = nextDirection == EDirection.No ? previousNode.No : previousNode.Yes;
                 }
 
-                EDirection lastDirection = path[0];
+                EDirection lastDirection = path[pathNodeCountMinusOne];
                 switch (lastDirection)
                 {
                     case EDirection.No:
@@ -96,6 +97,8 @@ namespace Proyecto_1
                 return;
             }
 
+            _currentPath.Add(EDirection.Yes);
+
             currentNode = currentNode.Yes;
             GenerateNodeView();
         }
@@ -108,6 +111,8 @@ namespace Proyecto_1
                 ProcessAnswerNotFound_GetNewAnswer();
                 return;
             }
+
+            _currentPath.Add(EDirection.No);
 
             currentNode = currentNode.No;
             GenerateNodeView();
@@ -140,10 +145,34 @@ namespace Proyecto_1
 
         private static void ProcessAnswerNotFound_SaveRun(string newAnswer, string newQuestion, EDirection newQuestionAnswer)
         {
-            // Add Entry To Database
-            Console.WriteLine(newAnswer);
-            Console.WriteLine(newQuestion);
-            Console.WriteLine(newQuestionAnswer);
+            // Make a copy of the old answer
+            List<EDirection> oldAnswerNewPath = currentNode.PathToNode.CloneList();
+            oldAnswerNewPath.Add(newQuestionAnswer == EDirection.Yes ? EDirection.No : EDirection.Yes);
+            Node oldAnswer = new Node() { Content = currentNode.Content, PathToNode = oldAnswerNewPath };
+
+            // Override the current last node so it contains the question content
+            currentNode.Content = newQuestion;
+
+            // Create the new answer
+            _currentPath.Add(newQuestionAnswer);
+            Node newAnswerNode = new Node() { Content = newAnswer, PathToNode = _currentPath.CloneList() };
+
+            // Make the new question node point to the previous and the new answers appropriately
+            switch (newQuestionAnswer)
+            {
+                case EDirection.No:
+                    currentNode.No = newAnswerNode;
+                    currentNode.Yes = oldAnswer;
+                    break;
+                case EDirection.Yes:
+                    currentNode.Yes = newAnswerNode;
+                    currentNode.No = oldAnswer;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newQuestionAnswer), newQuestionAnswer, null);
+            }
+
+            SaveManager.AddAndSaveRun(newAnswerNode);
 
             // Start Thank You Prompt
             currentWindow = Helpers.CreateSingleButtonWindow(currentWindow, ProjectStrings.ThankYou.Title, ProjectStrings.ThankYou.ButtonText,
