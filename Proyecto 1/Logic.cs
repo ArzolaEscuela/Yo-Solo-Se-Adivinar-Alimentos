@@ -172,7 +172,7 @@ namespace Proyecto_1
                     throw new ArgumentOutOfRangeException(nameof(newQuestionAnswer), newQuestionAnswer, null);
             }
 
-            SaveManager.AddAndSaveRun(newAnswerNode);
+            SaveManager.AddAndSaveRun(oldAnswer, newAnswerNode);
 
             // Start Thank You Prompt
             currentWindow = Helpers.CreateSingleButtonWindow(currentWindow, ProjectStrings.ThankYou.Title, ProjectStrings.ThankYou.ButtonText,

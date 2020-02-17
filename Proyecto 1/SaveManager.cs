@@ -66,9 +66,9 @@ namespace Proyecto_1
         /*---------------------------------- METHODS -----------------------------------------*/
         //------------------------------------------------------------------------------------//
 
-        public static void AddAndSaveRun(Node finishedRun)
+        public static void AddAndSaveRun(params Node[] finishedRun)
         {
-            loadedNodes.Add(finishedRun);
+            foreach (var item in finishedRun) { loadedNodes.Add(item); }
             Save();
         }
 
