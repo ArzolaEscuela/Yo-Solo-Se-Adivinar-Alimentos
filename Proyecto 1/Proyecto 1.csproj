@@ -55,7 +55,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="TextCaptureWindow.xaml.cs">
+      <DependentUpon>TextCaptureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="YesNoWindow.xaml.cs">
+      <DependentUpon>YesNoWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="SingleButtonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextCaptureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TitleScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +77,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ProjectStrings.cs" />
+    <Compile Include="SingleButtonWindow.xaml.cs">
+      <DependentUpon>SingleButtonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TitleScreen.xaml.cs">
+      <DependentUpon>TitleScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="YesNoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
