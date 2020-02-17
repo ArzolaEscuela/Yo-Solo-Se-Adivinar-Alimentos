@@ -22,7 +22,7 @@ namespace Proyecto_1
         private string _currentInput;
         public TextCaptureWindowContents Contents { get; set; }
 
-        public TextCaptureWindow(string title, string continueButtonText, string placeholderText, Action onValidContinuePressed, Func<string, bool> inputValidator, string subtitle = "")
+        public TextCaptureWindow(string title, string continueButtonText, string placeholderText, Action<string> onValidContinuePressed, Func<string, bool> inputValidator, string subtitle = "")
         {
             ApplyTemplate();
 
@@ -55,7 +55,7 @@ namespace Proyecto_1
             public string Subtitle { get; set; }
             public string PlaceholderText { get; set; }
             public string ContinueButtonText { get; set; }
-            public Action OnValidContinuePressed { get; set; }
+            public Action<string> OnValidContinuePressed { get; set; }
 
             public Func<string, bool> InputValidator { get; set; }
 
@@ -67,7 +67,7 @@ namespace Proyecto_1
             bool isValid = Contents.InputValidator(_currentInput);
             if (!isValid) { return; }
 
-            Contents.OnValidContinuePressed();
+            Contents.OnValidContinuePressed(_currentInput);
         }
 
         private void TextInput_OnTextChanged(object sender, TextChangedEventArgs e)

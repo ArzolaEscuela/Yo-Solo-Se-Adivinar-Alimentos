@@ -36,7 +36,7 @@
         <ContentPresenter Grid.Row="1" Grid.Column="1" Content="{Binding Contents}" Grid.ColumnSpan="2">
             <ContentPresenter.ContentTemplate>
                 <DataTemplate>
-                    <TextBlock Typography.Capitals="SmallCaps" FontFamily="Pescadero" TextAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" FontWeight="Bold" Text="{Binding Title}" FontSize="40" Foreground="White" />
+                    <TextBlock Typography.Capitals="SmallCaps" FontFamily="Pescadero" TextAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" FontWeight="Bold" Text="{Binding Title}" FontSize="22" Foreground="White" />
                 </DataTemplate>
             </ContentPresenter.ContentTemplate>
         </ContentPresenter>
